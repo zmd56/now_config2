@@ -1,0 +1,103 @@
+snippet /* "comment"
+/**
+ * $1
+ */
+endsnippet
+
+snippet /* "debug"
+#include "pprint/include/pprint.hpp"
+pprint::PrettyPrinter printer;
+endsnippet
+
+
+snippet readVec
+REOPEN_READ
+Solution s;
+vector<int> vec;
+int d;
+while(scanf("%d", &d) == 1){
+	vec.push_back(d);
+}
+s.
+$1
+endsnippet
+
+snippet deflld
+typedef long long int lld;
+endsnippet
+        
+snippet import
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <cmath>
+#include <stack>
+#include <sstream>
+#include <climits>
+#include <deque>
+#include <set>
+#include <utility>
+#include <queue>
+#include <map>
+#include <cstring>
+#include <algorithm>
+#include <iterator>
+#include <string>
+#include <cassert>
+#include <unordered_set>
+#include <unordered_map>
+
+using namespace std;
+
+int main(int argc, char *argv[]){
+	${0}
+	return 0;
+}
+endsnippet
+
+snippet review "Leetcode Review"
+/**
+ * 错误原因 : $1
+ * 措施:
+ */
+endsnippet
+
+snippet pray "佛祖保佑"
+/**
+ * 
+ *                           _ooOoo_
+ *                          o8888888o
+ *                          88" . "88
+ *                          (| -_- |)
+ *                           O\ = /O
+ *                       ____/\`---'\____
+ *                     .   ' \\\\| |//  '  .
+ *                      / \\\\||| : |||// \
+ *                    / _||||| -:- |||||- \
+ *                      | | \\\\\ - /// | |
+ *                    | \_| ''\---/'' | |
+ *                     \ .-\__ \`-\` ___/-. /
+ *                  ___\`. .' /--.--\ \`. . __
+ *               ."" '< \`.___\\_<|>_/___.' >' "".
+ *              | | : \`- \`.;\`\ _ /\`;.\`/ - \` : | |
+ *                \\ \\ \`-. \\_ __\\ /__ _/ .-\` / /
+ *        ======'-.____\`-.___\\_____/___.-\`____.-'======
+ *                           '=---='
+ */
+endsnippet
+
+
+snippet bugfound "I find the Bug"
+/**
+  * zzz
+  * 　＜⌒／ヽ-､_＿_
+  * ／＜_/＿＿＿＿／
+  * ￣￣￣￣￣￣￣
+  * 
+  * 　　　∧_∧         I find the bug
+  * 　　 (　･ω･)
+  * 　 ＿|　⊃／(＿＿_  
+  * ／　└-(＿＿＿_／
+  *
+	*/
+endsnippet

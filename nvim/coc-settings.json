@@ -1,0 +1,101 @@
+{
+  "codeLens.enable": true,
+
+  "suggest.noselect": false,
+  "suggest.snippetIndicator": " ",
+  "suggest.completionItemKindLabels": {
+    "keyword": "",
+    "variable": "",
+    "value": "",
+    "operator": "Ψ",
+    "function": "ƒ",
+    "reference": "",
+    "constant": "",
+    "method": "",
+    "struct": "פּ",
+    "class": " ",
+    "interface": "",
+    "text": "",
+    "enum": "",
+    "enumMember": "",
+    "module": "",
+    "color": "",
+    "property": "",
+    "field": "ﲋ",
+    "unit": "",
+    "event": "",
+    "file": "",
+    "folder": "",
+    "snippet": "",
+    "typeParameter": "",
+    "default": ""
+  },
+
+  "tree.openedIcon": "",
+  "tree.closedIcon": "",
+  "tree.key.close": "q",
+  "tree.key.invoke": "<cr>",
+  "tree.key.toggle": "<Tab>",
+
+  "outline.keepWindow": true,
+
+
+  // preferences
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": ["rust", "lua", "dart"],
+
+  // diagnostic
+  "diagnostic.hintSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.errorSign": "",
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextPrefix": " ﯑ ",
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.refreshOnInsertMode": false,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.format": "%message [%source%code]",
+  "diagnostic.separateRelatedInformationAsDiagnostics": true,
+
+  // lua
+  "sumneko-lua.enableNvimLuaDev": true,
+  "Lua.diagnostics.globals": ["vim"],
+  "Lua.diagnostics.disable": ["trailing-space"],
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.completion.callSnippet": "Replace",
+
+  // python
+  "python.linting.enabled": false,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.sortImports.args": ["-m3"],
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--skip-string-normalization"],
+
+  // javascript
+  "javascript.suggestionActions.enabled": false,
+
+  // prettier
+  "prettier.printWidth": 90,
+  "prettier.singleQuote": true,
+  "prettier.eslintIntegration": true,
+
+  // eslint
+  "eslint.autoFixOnSave": true,
+
+  // go
+  "go.goplsOptions": {
+    "semanticTokens": true,
+    "linksInHover": false,
+    "usePlaceholders": true,
+    "staticcheck": true
+  },
+
+  // languageservers
+  "languageserver": {
+    "kotlin": {
+      "command": "kotlin-language-server",
+      "filetypes": ["kotlin"]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "configurations": {
+    "run": {
+      "adapter": "vscode-bash",
+      "configuration": {
+        "type": "shell",
+        "request": "launch",
+        "cmd": "${workspaceRoot}",
+        "program": "${file}",
+        "stopOnEntry": "true",
+        "console": "integratedTerminal"
+      }
+    }
+  }
+}

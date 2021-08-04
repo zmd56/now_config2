@@ -1,0 +1,612 @@
+###***************** 开始系统配置 *****************###
+
+# 键位映射
+set $mod  Mod4
+set $mod1 Mod1
+
+# 启用的终端
+bindsym $mod+Return exec alacritty
+
+# 音量控制
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   +10%   && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@   -10%   && $refresh_i3status
+bindsym XF86AudioMute        exec --no-startup-id pactl set-sink-mute   @DEFAULT_SINK@   toggle && $refresh_i3status
+bindsym XF86AudioMicMute     exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# 屏幕亮度
+# bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 5"
+# bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 5"
+# 方案二  安装light-git
+bindsym XF86MonBrightnessUp   exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
+
+# 启用以下设置以从xresources获取所有颜色
+set_from_resource $xforeground foreground
+set_from_resource $xbackground background
+set_from_resource $xcursor     cursorColor
+set_from_resource $xcolor0     color0
+set_from_resource $xcolor8     color8
+set_from_resource $xcolor1     color1
+set_from_resource $xcolor9     color9
+set_from_resource $xcolor2     color2
+set_from_resource $xcolor10    color10
+set_from_resource $xcolor3     color3
+set_from_resource $xcolor11    color11
+set_from_resource $xcolor4     color4
+set_from_resource $xcolor12    color12
+set_from_resource $xcolor5     color5
+set_from_resource $xcolor13    color13
+set_from_resource $xcolor6     color6
+set_from_resource $xcolor14    color14
+set_from_resource $xcolor7     color7
+set_from_resource $xcolor15    color15
+
+# Manual color settings.
+# red theme
+set $xforeground #c5c8c6
+set $xbackground #1d1f21
+set $xcursor     #c5c8c6
+set $xcolor0     #282a2e
+set $xcolor8     #373b41
+set $xcolor1     #a54242
+set $xcolor9     #cc6666
+set $xcolor2     #8c9440
+set $xcolor10    #b5bd68
+set $xcolor3     #de935f
+set $xcolor11    #f0c674
+set $xcolor4     #5f819d
+set $xcolor12    #81a2be
+set $xcolor5     #85678f
+set $xcolor13    #b294bb
+set $xcolor6     #5e8d87
+set $xcolor14    #8abeb7
+set $xcolor7     #707880
+set $xcolor15    #c5c8c6
+
+# blue theme
+set $xforeground #c5c8c6
+set $xbackground #1d1f21
+set $xcursor     #c5c8c6
+set $xcolor0     #0d3264
+set $xcolor8     #373b41
+set $xcolor1     #467ecb
+set $xcolor9     #cc6666
+set $xcolor2     #8c9440
+set $xcolor10    #b5bd68
+set $xcolor3     #de935f
+set $xcolor11    #f0c674
+set $xcolor4     #5f819d
+set $xcolor12    #81a2be
+set $xcolor5     #85678f
+set $xcolor13    #b294bb
+set $xcolor6     #6298e0
+set $xcolor14    #8abeb7
+set $xcolor7     #707880
+set $xcolor15    #c5c8c6
+
+# Colors
+# Class                 border          backgr      text            indic
+client.focused          $xcolor6       $xcolor1     $xbackground   $xcolor7
+client.focused_inactive $xcolor6       $xcolor0     $xcolor14
+client.unfocused        $xcolor6       $xcolor0     $xcolor14
+client.urgent           $xbackground   $xcolor9     $xbackground
+client.placeholder      $xcolor7       $xcolor7     $xcolor14
+
+# 重新加载配置文件
+bindsym $mod+Shift+c reload
+
+# 在原位重新启动i3（保留您的布局/会话，可用于升级i3）
+bindsym $mod+Shift+r restart
+
+# 将窗口移动到便签，呼出
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus            scratchpad show
+
+# 电源管理
+set $mode_system  锁屏(L) 登录(O) 重启(R) 关机(S)
+bindsym $mod+x mode "$mode_system"
+mode "$mode_system" {
+    bindsym l      exec --no-startup-id i3lock-fancy,       mode "default"
+    bindsym o      exec --no-startup-id i3-msg    exit,     mode "default"
+    bindsym r      exec --no-startup-id systemctl reboot,   mode "default"
+    bindsym s      exec --no-startup-id systemctl poweroff, mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+x mode "default"
+}
+
+# ===========
+# === 锁屏
+# ===========
+# 手动锁屏
+bindsym $mod+F12        exec --no-startup-id i3lock-fancy
+# 无操作10分钟自动锁屏
+exec    --no-startup-id xautolock -time 10 -locker i3lock-fancy
+# exec    --no-startup-id $HOME/.config/i3/start_xautolock.sh
+
+# set $Locker i3lock --color=000000 && sleep 1
+# exec --no-startup-id xautolock -time 5 -locker "$Locker"
+
+###***************** 结束系统配置 *****************###
+
+###***************** 开始工作区操作 *****************###
+
+# 使用 Mouse+$mod 将浮动窗口拖动到所需位置
+floating_modifier $mod
+
+# 关闭窗口
+bindsym $mod+q kill
+
+# ===============
+# === 切换焦点
+# ===============
+# 切换焦点
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# 使用光标键切换焦点
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
+
+set $mode_Swith_fix 切换焦点  (H) (J) (K) (L)
+bindsym $mod+Ctrl+m mode "$mode_Swith_fix"
+mode "$mode_Swith_fix" {
+    bindsym h           focus left
+    bindsym j           focus down
+    bindsym k           focus up
+    bindsym l           focus right
+
+    bindsym Left        focus left
+    bindsym Down        focus down
+    bindsym Up          focus up
+    bindsym Right       focus right
+
+    bindsym Return      mode "default"
+    bindsym Escape      mode "default"
+    bindsym $mod+Ctrl+m mode "default"
+}
+
+# ===============
+# === 移动容器
+# ===============
+# 移动容器
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# 使用光标键移动容器
+bindsym $mod+Shift+Left  move left
+bindsym $mod+Shift+Down  move down
+bindsym $mod+Shift+Up    move up
+bindsym $mod+Shift+Right move right
+
+set $mode_Moves 移动容器 (H) (J) (K) (L)
+bindsym $mod+Shift+M mode "$mode_Moves"
+mode "$mode_Moves" {
+    bindsym h            move left
+    bindsym j            move down
+    bindsym k            move up
+    bindsym l            move right
+
+    bindsym Left         move left
+    bindsym Down         move down
+    bindsym Up           move up
+    bindsym Right        move right
+
+    bindsym Return       mode "default"
+    bindsym Escape       mode "default"
+    bindsym $mod+Shift+M mode "default"
+}
+
+# =============
+# === 工作区
+# =============
+# 定义工作区
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:  "
+set $ws9 "9:  "
+set $ws10 "10:  "
+
+# 切换工作区
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# ===============
+# === 移动跟随
+# ===============
+# 移动当前容器到指定窗口并跟随
+bindsym $mod+Shift+1 move container to workspace number $ws1,  workspace $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2,  workspace $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3,  workspace $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4,  workspace $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5,  workspace $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6,  workspace $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7,  workspace $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8,  workspace $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9,  workspace $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10, workspace $ws10
+
+# 将工作区移至下一个/上一个工作区并跟随
+bindsym $mod+mod1+h     move container to workspace prev, workspace prev
+bindsym $mod+mod1+l     move container to workspace next, workspace next
+
+bindsym $mod+mod1+Right move container to workspace prev, workspace prev
+bindsym $mod+mod1+left  move container to workspace next, workspace next
+
+set $mode_move_work_and 移动并跟随工作区  (H)  (L)
+bindsym $mod+mod1+m mode "$mode_move_work_and"
+mode "$mode_move_work_and" {
+    bindsym h           move container to workspace prev, workspace prev
+    bindsym l           move container to workspace next, workspace next
+
+    bindsym Left        move container to workspace prev, workspace prev
+    bindsym Right       move container to workspace next, workspace next
+
+    bindsym Return      mode "default"
+    bindsym Escape      mode "default"
+    bindsym $mod+mod1+m mode "default"
+}
+
+# =================
+# === 移动不跟随
+# =================
+# 移动当前容器到指定窗口不跟随
+bindsym $mod+Ctrl+1 move container to workspace number $ws1
+bindsym $mod+Ctrl+2 move container to workspace number $ws2
+bindsym $mod+Ctrl+3 move container to workspace number $ws3
+bindsym $mod+Ctrl+4 move container to workspace number $ws4
+bindsym $mod+Ctrl+5 move container to workspace number $ws5
+bindsym $mod+Ctrl+6 move container to workspace number $ws6
+bindsym $mod+Ctrl+7 move container to workspace number $ws7
+bindsym $mod+Ctrl+8 move container to workspace number $ws8
+bindsym $mod+Ctrl+9 move container to workspace number $ws9
+bindsym $mod+Ctrl+0 move container to workspace number $ws10
+
+# 将工作区移至下一个/上一个工作区不跟随
+bindsym $mod+mod1+Ctrl+h     move container to workspace prev
+bindsym $mod+mod1+Ctrl+l     move container to workspace next
+
+bindsym $mod+mod1+Ctrl+Right move container to workspace prev
+bindsym $mod+mod1+Ctrl+Left  move container to workspace next
+
+set $mode_move_work 移动不跟随工作区  (H)  (L)
+bindsym $mod+Ctrl+Shift+m mode "$mode_move_work"
+mode "$mode_move_work" {
+    bindsym h                 move container to workspace prev
+    bindsym l                 move container to workspace next
+
+    bindsym Left              move container to workspace prev
+    bindsym Right             move container to workspace next
+
+    bindsym Return            mode "default"
+    bindsym Escape            mode "default"
+    bindsym $mod+Ctrl+Shift+m mode "default"
+}
+
+# 将工作区移至下一个输出
+bindsym $mod+Ctrl+h move workspace to output right
+bindsym $mod+Ctrl+j move workspace to output down
+bindsym $mod+Ctrl+k move workspace to output up
+bindsym $mod+Ctrl+l move workspace to output left
+
+bindsym $mod+Ctrl+Shift+Left  move workspace to output left
+bindsym $mod+Ctrl+Shift+Right move workspace to output right
+bindsym $mod+Ctrl+Shift+Up    move workspace to output up
+bindsym $mod+Ctrl+Shift+Down  move workspace to output down
+
+set $mode_move_next_work 移动工作区到外接显示  (H) (J) (K) (L)
+bindsym $mod+Ctrl+mod1+m mode "$mode_move_next_work"
+mode "$mode_move_next_work" {
+    bindsym h                move workspace to output right
+    bindsym j                move workspace to output down
+    bindsym k                move workspace to output up
+    bindsym l                move workspace to output left
+
+    bindsym Left             move workspace to output left
+    bindsym Down             move workspace to output down
+    bindsym Up               move workspace to output up
+    bindsym Right            move workspace to output right
+
+    bindsym Return           mode "default"
+    bindsym Escape           mode "default"
+    bindsym $mod+Ctrl+mod1+m mode "default"
+}
+
+# 导航下一个/上一个工作区
+bindsym $mod+Ctrl+Shift+l workspace next
+bindsym $mod+Ctrl+Shift+h workspace prev
+
+bindsym $mod+Ctrl+Right   workspace next
+bindsym $mod+Ctrl+Left    workspace prev
+
+set $mode_move 切换工作区  (H)  (L)
+bindsym $mod+m mode "$mode_move"
+mode "$mode_move" {
+    bindsym h      workspace prev
+    bindsym l      workspace next
+
+    bindsym Left   workspace prev
+    bindsym Right  workspace next
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+m mode "default"
+}
+
+# 容器、窗口移动到当前窗口
+bindsym $mod+F1  [class="firefox"]   move workspace current
+bindsym $mod+F2  [class="chrome"]    move workspace current
+bindsym $mod+F3  [class="Chromium"]  move workspace current
+bindsym $mod+F4  [class="Alacritty"] move workspace current
+bindsym $mod+F5  [class="*"] move workspace current
+bindsym $mod+F11 exec $HOME/.config/i3/quickswitch.py -m
+
+# 快速跳转到指定的软件窗口
+bindsym $mod1+F1 [class="electron-qq"]   focus
+bindsym $mod1+F2 [class="微信"]          focus
+bindsym $mod1+F3 [class="dingtalklinux"] focus
+
+# =======================================
+# === 10以后工作区，切换、跟随、不跟随
+# =======================================
+bindsym $mod+i       exec i3-input -F 'workspace "%s"' -P 'Workspace: '
+bindsym $mod+Shift+i exec $HOME/.config/i3/switch_workspace.sh
+bindsym $mod+Ctrl+i  exec i3-input -F 'move container to workspace "%s"' -P 'Move to workspace: '
+
+# ===============
+# === 窗口操作
+# ===============
+# 调整窗口大小
+bindsym Shift+Ctrl+h     resize shrink width  10 px or 10 ppt
+bindsym Shift+Ctrl+k     resize grow   height 10 px or 10 ppt
+bindsym Shift+Ctrl+j     resize shrink height 10 px or 10 ppt
+bindsym Shift+Ctrl+l     resize grow   width  10 px or 10 ppt
+
+bindsym Shift+Ctrl+Left  resize shrink width  10 px or 10 ppt
+bindsym Shift+Ctrl+Down  resize grow   height 10 px or 10 ppt
+bindsym Shift+Ctrl+Up    resize shrink height 10 px or 10 ppt
+bindsym Shift+Ctrl+Right resize grow   width  10 px or 10 ppt
+
+set $resize 调整大小 (H) (J) (K) (L)
+bindsym $mod+r mode "$resize"
+mode "$resize" {
+        bindsym h      resize shrink width  10 px or 10 ppt
+        bindsym j      resize grow   height 10 px or 10 ppt
+        bindsym k      resize shrink height 10 px or 10 ppt
+        bindsym l      resize grow   width  10 px or 10 ppt
+
+        bindsym Left   resize shrink width  10 px or 10 ppt
+        bindsym Down   resize grow   height 10 px or 10 ppt
+        bindsym Up     resize shrink height 10 px or 10 ppt
+        bindsym Right  resize grow   width  10 px or 10 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+# ===========
+# === 布局
+# ===========
+# 设置窗口边框等等
+new_window        pixel 2
+new_float         normal
+hide_edge_borders both
+
+# 设置窗口间距
+gaps inner 2
+gaps outer 0
+
+# 垂直分割
+bindsym $mod+g split h
+
+# 水平分割
+bindsym $mod+v split v
+
+# 进入聚焦容器的全屏模式
+bindsym $mod+f fullscreen toggle
+
+# 切换平铺/浮动
+bindsym $mod+Shift+space floating toggle
+
+# 在平铺/浮动窗口之间切换焦点
+bindsym $mod+space focus mode_toggle
+
+# 集中父容器
+bindsym $mod+a focus parent
+
+# 集中子容器
+bindsym $mod+Ctrl+a focus child
+
+# 更改容器布局(stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# 切换容器间间隙
+bindsym $mod+Shift+o gaps inner all set 0; gaps outer all set 0
+bindsym $mod+o       gaps inner all set 2; gaps outer all set 0
+
+# 平衡布局
+bindsym $mod+Ctrl+b  exec "i3_balance_workspace --scope focus"
+bindsym $mod+Shift+b exec "i3_balance_workspace"
+###***************** 结束工作区操作 *****************###
+
+###***************** 开始自定义 *****************###
+
+# 快速打开rofi、demu、ulauncher、uTools
+bindsym $mod+d exec --no-startup-id rofi -combi-modi window#drun -show combi -modi combi -show-icons -theme arthur -font "mono 24"
+
+set $mode_menu  dmenu(D) ulauncher(U) utools(T)
+bindsym $mod1+d mode "$mode_menu"
+mode "$mode_menu"{
+    bindsym d       exec --no-startup-id i3-dmenu-desktop,                                     mode "default"
+    bindsym t       exec --no-startup-id utools,                                               mode "default"
+    bindsym u       exec --no-startup-id env GDK_BACKEND=x11 /usr/bin/ulauncher --hide-window, mode "default"
+
+    bindsym Return  mode "default"
+    bindsym Escape  mode "default"
+    bindsym $mod1+d mode "default"
+}
+
+# 屏幕操作
+bindsym $mod+p exec --no-startup-id deepin-screenshot
+
+set $mode_screen  simp(S) OBS(O) 捕捉键(K) 投屏(X) 抓屏(C)
+bindsym $mod1+p mode "$mode_screen"
+mode "$mode_screen"{
+    bindsym s       exec --no-startup-id simplescreenrecorder,                         mode "default"
+    bindsym o       exec --no-startup-id prime-run obs,                                mode "default"
+    bindsym k       exec --no-startup-id screenkey,                                    mode "default"
+    bindsym x       exec xrandr --output HDMI1 --mode 1024x768 --same-as eDP-1 --auto, mode "default"
+    bindsym c       exec --no-startup-id scrcpy,                                       mode "default"
+
+    bindsym Return  mode "default"
+    bindsym Escape  mode "default"
+    bindsym $mod1+p mode "default"
+}
+
+
+# 电子书
+bindsym $mod1+Shift+t exec calibre --detach %U
+# 图形文件管理器
+bindsym $mod+b        exec nemo
+# i3标签快速切换
+bindsym $mod1+f       exec --no-startup-id i3-easyfocus
+
+# 浏览器
+bindsym $mod+c        exec google-chrome-stable
+
+set $mode_brower firefox(F) chromium(C)
+bindsym $mod1+c mode "$mode_brower"
+mode "$mode_brower"{
+    bindsym f       exec firefox,     mode "default"
+    bindsym c       exec chromium %U, mode "default"
+
+    bindsym Return  mode "default"
+    bindsym Escape  mode "default"
+    bindsym $mod1+c mode "default"
+}
+
+# 快速打开QQ、微信、钉钉
+set $mode_char wineqq(I) linuxqq(Q) 微信(W) 钉钉(D)
+bindsym $mod1+x mode "$mode_char"
+mode "$mode_char"{
+    bindsym i       exec "/opt/deepinwine/apps/Deepin-QQLight/run.sh", mode "default"
+    bindsym q       exec electron-qq,                                  mode "default"
+    bindsym w       exec wechat-uos %U,                                mode "default"
+    bindsym d       exec dingtalk-linux,                               mode "default"
+
+    bindsym Escape  mode "default"
+    bindsym Return  mode "default"
+    bindsym $mod1+x mode "default"
+}
+
+# 网络管理
+set $mode_net FTP(F) SSH(S) 邮件(T)
+bindsym $mod1+Ctrl+n mode "$mode_net"
+mode "$mode_net"{
+    bindsym f            exec filezilla,   mode "default"
+    bindsym s            exec putty,       mode "default"
+    bindsym t            exec thunderbird, mode "default"
+
+    bindsym Escape       mode "default"
+    bindsym Return       mode "default"
+    bindsym $mod1+Ctrl+n mode "default"
+}
+
+# ===============
+# === 自动运行
+# ===============
+# exec        --no-startup-id nm-applet &
+exec        feh             --bg-fill $HOME/Pictures/wallpapers/deepin/Hummingbird_by_Shu_Le.jpg
+exec        --no-startup-id nitrogen  --restore; sleep 1; picom -CGb
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always xmodmap         $HOMR/.xmodmap
+exec_always --no-startup-id mpd
+exec_always --no-startup-id conky -c $HOME/.conkyrc
+# exec_always --no-startup-id conky -c $HOME/.Conky/arch_logo
+# exec --no-startup-id /usr/bin/copyq &
+# exec --no-startup-id /usr/bin/v2ray &
+
+# ==================
+# === 触摸板启/停
+# ==================
+# 禁用触摸板
+exec xinput disable 18
+exec xinput disable 13
+
+# 启/停用触摸板
+set $mode_touchpad 触摸板 启用(E) 停用(D)
+bindsym $mod+t mode "$mode_touchpad"
+mode "$mode_touchpad"{
+    bindsym e      exec xinput enable  18,mode "default"
+    bindsym d      exec xinput disable 18,mode "default"
+    bindsym E      exec xinput enable  13,mode "default"
+    bindsym D      exec xinput disable 13,mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+t mode "default"
+}
+
+# 默认关闭触摸板
+# exec synclient Touchpadoff=1
+# 启/停触摸板
+# bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
+# bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
+
+# 音乐播放器
+set $mode_muisc  ncmpcpp(N) cmus(C) 网易(M) 洛雪(L)
+bindsym $mod1+m mode "$mode_muisc"
+mode "$mode_muisc"{
+    bindsym n       exec alacritty -e ncmpcpp, mode "default"
+    bindsym c       exec alacritty -e cmus,    mode "default"
+    bindsym m       exec netease-cloud-music,  mode "default"
+    bindsym l       exec lx-music-desktop,     mode "default"
+
+    bindsym Return  mode "default"
+    bindsym Escape  mode "default"
+    bindsym $mod1+m mode "default"
+}
+
+# =======================
+# === 浮动窗口打开软件
+# =======================
+bindsym $mod+plus     exec alacritty -t 'alacritty-alacritty'
+bindsym $mod+z        exec alacritty -t 'alacritty-htop'         -e htop
+bindsym $mod1+Shift+n exec alacritty -t 'alacritty-floating'     -e nvim  scratchpad
+bindsym $mod1+$mod+n  exec alacritty -t 'alacritty-nmtui'        -e nmtui
+bindsym $mod1+z       exec gcalctool
+bindsym $mod+n        exec "sh $HOME/.config/i3/net_open.sh"
+bindsym $mod+Ctrl+n   exec "sh $HOME/.config/i3/net_close.sh"
+
+# 浮动窗口
+for_window [instance="gcalctool"]             floating enable
+for_window [instance="lxappearance"]          floating enable
+for_window [title="^alacritty-alacritty$"]    floating enable, move position center
+for_window [title="^alacritty-htop$"]         floating enable, move position center
+for_window [title="^alacritty-floating$"]     floating enable, move position center
+for_window [title="^alacritty-nmtui$"]        floating enable, move position center
+###***************** 结束自定义 *****************###
